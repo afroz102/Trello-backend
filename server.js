@@ -26,8 +26,9 @@ app.use(express.json());
 if (process.env.NODE_ENV === 'development') {
 }
 */
-
+// origin: true,
 app.use(cors({
+    credentials: true,
     origin: process.env.CLIENT_URL
     // app.use(morgan('dev'));
 }));
