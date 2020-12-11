@@ -49,7 +49,7 @@ app.use('/api/card/', cardRouter);
 app.use('/api/search/', searchRouter);
 
 app.use((req, res, next) => {
-    res.header('Acess-Control-Allow-Origin', '*');
+    res.header('Acess-Control-Allow-Origin', 'http://localhost:3000');
     next();
 });
 app.use((req, res, next) => {
