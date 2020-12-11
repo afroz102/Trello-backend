@@ -7,11 +7,14 @@ const connectDB = require('./config/db');
 
 const app = express();
 
-// Config.env to ./config/config.env
 require('dotenv').config();
-// require('dotenv').config({
-//     path: './config/config.env'
-// });
+
+/*
+// Config.env to ./config/config.env
+require('dotenv').config({
+    path: './config/config.env'
+});
+*/
 
 // Connect to database
 connectDB();
@@ -19,13 +22,13 @@ connectDB();
 app.use(express.json());
 
 // Config only for development
-// if (process.env.NODE_ENV === 'development') {
-//     app.use(cors({
-//         origin: process.env.CLIENT_URL
-//     }));
+if (process.env.NODE_ENV === 'development') {
+    app.use(cors({
+        origin: process.env.CLIENT_URL
+    }));
 
-//     app.use(morgan('dev'));
-// }
+    app.use(morgan('dev'));
+}
 
 // Load all routes
 const userRouter = require('./routes/userRouter');
