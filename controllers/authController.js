@@ -114,7 +114,7 @@ exports.isTokenValid = async (req, res) => {
 
         if (!token) return res.json(false);
 
-        const verified = jwt.verify(token, process.env.JWT_SECRET);
+        const verified = jwt.verify(token, JWT_SECRET);
         // console.log('verified: ', verified);
 
         if (!verified) return res.json(false);
