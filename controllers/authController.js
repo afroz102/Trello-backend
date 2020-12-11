@@ -2,6 +2,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const UserModel = require('../models/UserModel');
 
+const JWT_SECRET = process.env.JWT_SECRET || '545245452454ewewe2secterekkdldk';
+
 exports.register = async (req, res) => {
     try {
         // console.log('req.body', req.body);
@@ -71,12 +73,12 @@ exports.login = async (req, res) => {
 
 
             if (!isMatched) {
-                console.log('wrong password');
+                // console.log('wrong password');
                 return res.status(400).json({ msg: "Invalid credentials." });
             }
             // console.log('ismatched: ', ismatched);
 
-            const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+            const token = jwt.sign({ id: user._id }, JWT_SECRET);
 
             // console.log('token: ', token);
 
