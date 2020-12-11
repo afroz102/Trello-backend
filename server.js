@@ -29,7 +29,7 @@ if (process.env.NODE_ENV === 'development') {
 // origin: true,
 app.use(cors({
     credentials: true,
-    origin: process.env.CLIENT_URL
+    origin: ture
     // app.use(morgan('dev'));
 }));
 // app.use(cors());
