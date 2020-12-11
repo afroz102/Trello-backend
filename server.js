@@ -22,13 +22,13 @@ connectDB();
 app.use(express.json());
 
 // Config only for development
-if (process.env.NODE_ENV === 'development') {
-    app.use(cors({
-        origin: process.env.CLIENT_URL
-    }));
+// if (process.env.NODE_ENV === 'development') {
+app.use(cors({
+    origin: process.env.CLIENT_URL
+}));
 
-    app.use(morgan('dev'));
-}
+app.use(morgan('dev'));
+// }
 
 // Load all routes
 const userRouter = require('./routes/userRouter');
