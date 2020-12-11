@@ -49,6 +49,10 @@ app.use('/api/card/', cardRouter);
 app.use('/api/search/', searchRouter);
 
 app.use((req, res, next) => {
+    res.header('Acess-Control-Allow-Origin', '*');
+    next();
+});
+app.use((req, res, next) => {
     res.status(404).json({
         success: false,
         message: "Page Not Found"
