@@ -15,10 +15,8 @@ require('dotenv').config({
 // Connect to database
 connectDB();
 
-
-// Use bodyParser
-// app.use(bodyParser.json())
 app.use(express.json());
+
 // Config only for development
 if (process.env.NODE_ENV === 'development') {
     app.use(cors({
@@ -29,12 +27,12 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Load all routes
-// const authRouter = require('./routes/auth.route');
+const userRouter = require('./routes/userRouter');
 const boardRouter = require('./routes/board.route');
 const listRouter = require('./routes/list.route');
 const cardRouter = require('./routes/card.route');
 const searchRouter = require('./routes/search.route');
-const userRouter = require('./routes/userRouter');
+
 // Use routes
 app.use('/api/user/', userRouter);
 app.use('/api/board/', boardRouter);
