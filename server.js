@@ -26,11 +26,13 @@ app.use(express.json());
 if (process.env.NODE_ENV === 'development') {
 }
 */
-// origin: true,
+app.use((req, res, next) => {
+    res.header('Acess-Control-Allow-Origin', 'http://localhost:3000');
+    next();
+});
 app.use(cors({
     credentials: true,
     origin: ture
-    // app.use(morgan('dev'));
 }));
 // app.use(cors());
 // app.use(morgan('dev'));
@@ -49,10 +51,7 @@ app.use('/api/list/', listRouter);
 app.use('/api/card/', cardRouter);
 app.use('/api/search/', searchRouter);
 
-app.use((req, res, next) => {
-    res.header('Acess-Control-Allow-Origin', 'http://localhost:3000');
-    next();
-});
+
 app.use((req, res, next) => {
     res.status(404).json({
         success: false,
