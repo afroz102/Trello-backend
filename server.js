@@ -1,13 +1,10 @@
 const express = require('express');
-const morgan = require('morgan');
-// const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const connectDB = require('./config/db');
+require('dotenv').config();
 
 const app = express();
-
-require('dotenv').config();
 
 /*
 // Config.env to ./config/config.env
@@ -21,18 +18,22 @@ connectDB();
 
 app.use(express.json());
 
-/*
+
+let origin = process.env.CLIENT_URL;
+
 // Config only for development
 if (process.env.NODE_ENV === 'development') {
+    origin = 'http://localhost:3000';
 }
-*/
+
 app.use((req, res, next) => {
-    res.header('Acess-Control-Allow-Origin', 'http://localhost:3000');
+    res.header('Acess-Control-Allow-Origin', origin);
     next();
 });
+
 app.use(cors({
     credentials: true,
-    origin: ture
+    origin: true
 }));
 // app.use(cors());
 // app.use(morgan('dev'));

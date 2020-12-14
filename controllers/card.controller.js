@@ -128,3 +128,61 @@ exports.deleteCard = async (req, res) => {
         res.status(500).send('Server Error');
     }
 }
+
+exports.sameListReorder = async (req, res, next) => {
+    try {
+        const { sameColumnId, samecolumnCardIds } = req.body;
+        console.log(sameColumnId, samecolumnCardIds);
+        const column = await Column.findOne({ columnId: sameColumnId });
+        if (!column) {
+            return res
+                .status(404)
+                .json({ message: 'unable to find column of provided id' });
+        }
+        column.set({ cardIds: samecolumnCardIds });
+        const savedColumn = await column.save();
+
+        return res
+            .status(200)
+            .json({ message: 'same column reorder success', savedColumn });
+    } catch (e) {
+        return internalErrorResponse(e, res);
+    }
+};
+
+
+
+exports.diffListReorder = async (req, res, next) => {
+    try {
+        const {
+            removedColumnId,
+            addedColumnId,
+            removedColumnCardIds,
+            addedColumnCardIds,
+        } = req.body;
+        if (
+            !(
+                removedColumnId &&
+                addedColumnId &&
+                removedColumnCardIds &&
+                addedColumnCardIds
+            )
+        ) {
+            return res.status(400).json({ message: 'some fields are missing' });
+        }
+
+        const removedcolumn = await Column.findOne({ columnId: removedColumnId });
+        removedcolumn.set({ cardIds: removedColumnCardIds });
+        await removedcolumn.save();
+
+        const addedcolumn = await Column.findOne({ columnId: addedColumnId });
+        addedcolumn.set({ cardIds: addedColumnCardIds });
+        await addedcolumn.save();
+
+        return res
+            .status(200)
+            .json({ message: 'different column reorder success' });
+    } catch (e) {
+        return internalErrorResponse(e, res);
+    }
+};
